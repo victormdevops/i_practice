@@ -1,0 +1,21 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Workplace {
+  id     Int    @id @default(autoincrement())
+  name   String
+  shifts Shift[]
+}
+
+model Shift {
+  id          Int        @id @default(autoincrement())
+  workplaceId Int
+  workplace   Workplace  @relation(fields: [workplaceId], references: [id])
+}
+
